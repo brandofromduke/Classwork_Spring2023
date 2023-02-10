@@ -1,21 +1,34 @@
-def create_patient_entry(patient_name, patient_mrn, patient_age):
-    new_patient = [patient_name, patient_mrn, patient_age, []]
+def create_patient_entry(first_name, last_name, patient_mrn, patient_age):
+    # new_patient = [patient_name, patient_mrn, patient_age, []]
+    new_patient = {"First Name": first_name, "Last Name": last_name,
+                   "MRN": patient_mrn, "Age": patient_age,
+                   "Tests": []}
     return new_patient
+    
+    
+def get_full_name(patient):
+    return "{} {}".format(patient["First Name"], patient["Last Name"])
+
+
+def print_database(db):
+    for patient in db:
+        print("MRN: {}, Full Name: {}, Age: {}".format(patient["MRN"], get_full_name(patient), patient["Age"]))
 
 
 def main_driver():
     db = []
-    db.append(create_patient_entry("Ann Ables", 1, 34))
-    db.append(create_patient_entry("Bob Boyles", 2, 45))
-    db.append(create_patient_entry("Chris Chou", 3, 52))
+    db.append(create_patient_entry("Ann", "Ables", 1, 34))
+    db.append(create_patient_entry("Bob", "Boyles", 2, 45))
+    db.append(create_patient_entry("Chris", "Chou", 3, 52))
     print(db)
-    add_test_to_patient(db, 1, "HDL", 120)
-    add_test_to_patient(db, 2, "LDL", 100)
-    add_test_to_patient(db, 2, "HDL", 99)
-    room_numbers = ["103", "232", "333"]
-    print(db)
-    print_directory(db, room_numbers)
-    print(get_test_result(db, 2, "LDL"))
+    print_database(db)
+    # add_test_to_patient(db, 1, "HDL", 120)
+    # add_test_to_patient(db, 2, "LDL", 100)
+    # add_test_to_patient(db, 2, "HDL", 99)
+    # room_numbers = ["103", "232", "333"]
+    # print(db)
+    # print_directory(db, room_numbers)
+    # print(get_test_result(db, 2, "LDL"))
 
 
 def print_directory(db, room_numbers):
