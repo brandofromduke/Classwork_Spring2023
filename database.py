@@ -22,13 +22,14 @@ def main_driver():
     db.append(create_patient_entry("Chris", "Chou", 3, 52))
     print(db)
     print_database(db)
-    # add_test_to_patient(db, 1, "HDL", 120)
-    # add_test_to_patient(db, 2, "LDL", 100)
-    # add_test_to_patient(db, 2, "HDL", 99)
+    add_test_to_patient(db, 1, "HDL", 120)
+    add_test_to_patient(db, 2, "LDL", 100)
+    add_test_to_patient(db, 2, "HDL", 99)
+    print(db)
     # room_numbers = ["103", "232", "333"]
     # print(db)
     # print_directory(db, room_numbers)
-    # print(get_test_result(db, 2, "LDL"))
+    print(get_test_result(db, 2, "LDL"))
 
 
 def print_directory(db, room_numbers):
@@ -40,7 +41,7 @@ def print_directory(db, room_numbers):
 
 def get_patient_entry(db, mrn_to_find):
     for patient in db:
-        if patient[1] == mrn_to_find:
+        if patient["MRN"] == mrn_to_find:
             return patient
     return False
 
@@ -50,7 +51,7 @@ def add_test_to_patient(db, mrn_to_find, test_name, test_value):
     if patient is False:
         print("Bad entry")
     else:
-        patient[3].append([test_name, test_value])
+        patient["Tests"].append([test_name, test_value])
     return
 
 
@@ -63,7 +64,7 @@ def get_test_value_from_test_list(test_list, test_name):
 
 def get_test_result(db, mrn, test_name):
     patient = get_patient_entry(db, mrn)
-    test_value = get_test_value_from_test_list(patient[3], test_name)
+    test_value = get_test_value_from_test_list(patient["Tests"], test_name)
     return test_value
 
 
