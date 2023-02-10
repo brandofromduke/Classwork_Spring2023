@@ -1,8 +1,29 @@
+class Patient:
+
+    def __init__(self, first_name, last_name, patient_mrn, patient_age):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.mrn = patient_mrn
+        self.age = patient_age
+        self.tests = []
+        
+    def __repr__(self):
+        return "Patient: {} {}".format(self.first_name, self.last_name)
+        
+    def full_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+        
+    def minor_or_adult(self):
+        if self.age >= 18:
+            return "adult"
+        else:
+            return "minor"
+
+
 def create_patient_entry(first_name, last_name, patient_mrn, patient_age):
     # new_patient = [patient_name, patient_mrn, patient_age, []]
-    new_patient = {"First Name": first_name, "Last Name": last_name,
-                   "MRN": patient_mrn, "Age": patient_age,
-                   "Tests": []}
+    new_patient = Patient(first_name, last_name,
+                          patient_mrn, patient_age)
     return new_patient
     
     
@@ -12,7 +33,7 @@ def get_full_name(patient):
 
 def print_database(db):
     for patient in db.values():
-        print("MRN: {}, Full Name: {}, Age: {}".format(patient["MRN"], get_full_name(patient), patient["Age"]))
+        print("MRN: {}, Full Name: {}, Age: {}".format(patient.mrn, patient.full_name(), patient.age))
 
 
 def main_driver():
@@ -31,7 +52,7 @@ def main_driver():
     # print(db)
     # print_directory(db, room_numbers)
     print(get_test_result(db, 2, "LDL"))
-    print("{} is a {}".format(get_full_name(db[2]), minor_or_adult(db[2])))
+    print("{} is a {}".format(db[2].full_name(), db[2].minor_or_adult()))
 
 
 def print_directory(db, room_numbers):
@@ -53,7 +74,7 @@ def add_test_to_patient(db, mrn_to_find, test_name, test_value):
     if patient is False:
         print("Bad entry")
     else:
-        patient["Tests"].append([test_name, test_value])
+        patient.tests.append([test_name, test_value])
     return
 
 
@@ -66,7 +87,7 @@ def get_test_value_from_test_list(test_list, test_name):
 
 def get_test_result(db, mrn, test_name):
     patient = get_patient_entry(db, mrn)
-    test_value = get_test_value_from_test_list(patient["Tests"], test_name)
+    test_value = get_test_value_from_test_list(patient.tests, test_name)
     return test_value
     
 
