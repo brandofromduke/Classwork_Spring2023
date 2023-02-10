@@ -6,13 +6,13 @@ class Patient:
         self.mrn = patient_mrn
         self.age = patient_age
         self.tests = []
-        
+
     def __repr__(self):
         return "Patient: {} {}".format(self.first_name, self.last_name)
-        
+
     def full_name(self):
         return "{} {}".format(self.first_name, self.last_name)
-        
+
     def minor_or_adult(self):
         if self.age >= 18:
             return "adult"
@@ -25,15 +25,17 @@ def create_patient_entry(first_name, last_name, patient_mrn, patient_age):
     new_patient = Patient(first_name, last_name,
                           patient_mrn, patient_age)
     return new_patient
-    
-    
+
+
 def get_full_name(patient):
     return "{} {}".format(patient["First Name"], patient["Last Name"])
 
 
 def print_database(db):
     for patient in db.values():
-        print("MRN: {}, Full Name: {}, Age: {}".format(patient.mrn, patient.full_name(), patient.age))
+        print("MRN: {}, Full Name: {}, Age: {}".format(patient.mrn,
+                                                       patient.full_name(),
+                                                       patient.age))
 
 
 def main_driver():
@@ -89,14 +91,13 @@ def get_test_result(db, mrn, test_name):
     patient = get_patient_entry(db, mrn)
     test_value = get_test_value_from_test_list(patient.tests, test_name)
     return test_value
-    
+
 
 def minor_or_adult(patient):
     if patient["Age"] >= 18:
         return "adult"
     else:
         return "minor"
-    
 
 
 if __name__ == "__main__":
